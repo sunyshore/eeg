@@ -45,7 +45,10 @@
     </nav>
     <div class="container">
         <br>
-        <h1>EEG</h1>
+        <div class="d-flex align-items-center">
+            <h1>EEG</h1>
+            <img src="https://cdn-icons-png.flaticon.com/512/4305/4305203.png" alt="EEG" class="eeg-image-small ms-3" style="width: 51.2px; height: 51.2px;">
+        </div>
         QMIND 24/25 Project 52. Camp QMIND Pitch Competition Winner. Featured at CUCAI 2025.
         <br><br>
         <div class="row">
@@ -82,13 +85,39 @@
                     </button>
                 </div>
                 <br>
-                What are the best ways to classify EEG data?
+                <br><br>
+                <h5>What are the best ways to classify EEG data?</h5>
                 <br><br>
 
-                <!-- fake content from BACON IPSUM -->
-                Spicy jalapeno bacon ipsum dolor amet salami bresaola pastrami, picanha jowl porchetta leberkas chislic pork chop tri-tip capicola. Pastrami jerky bresaola burgdoggen pig pancetta chuck bacon landjaeger meatball capicola rump cow. Sirloin pork chop jowl beef ribs t-bone turkey cupim pork loin ground round leberkas meatloaf hamburger salami frankfurter. Chislic shoulder landjaeger, leberkas tail brisket chuck turducken. Strip steak chuck turducken pastrami pork ham hock cow pork loin frankfurter biltong meatloaf beef. Turducken chicken bresaola t-bone, capicola turkey drumstick boudin pork chop kielbasa. Tenderloin meatball porchetta jowl, short ribs ham leberkas bresaola buffalo salami cow sirloin meatloaf.
+                <b>Research/Motivation</b>
+                <br>
+                Our research aims to investigate whether motor imagery data can be effectively classified, enabling individuals who rely on wheelchairs to control them using their minds. We also seek to explore whether integrating common NLP techniques, such as attention mechanisms, into biomedical data classification can enhance the accuracy of predictive models. Additionally, we aim to determine if these technologies can become more accessible by developing pipelines that achieve high accuracy even with basic EEG devices. Our motivation stems from the fact that approximately 15 million people worldwide suffer from conditions, including locked-in syndrome, that entirely restrict their movement. Currently, thought-classification models predominantly utilize professional-grade brain-computer interfaces (BCIs), costing upwards of $25,000, rendering them unaffordable for many. Furthermore, these existing models typically achieve accuracy levels ranging from 70-80%. Our primary goal, therefore, is to create a model leveraging a more accessible 8-channel EEG setup that attains accuracy comparable to existing professional systems.
                 <br><br>
-                Salami tail corned beef capicola, chislic buffalo ham short ribs andouille sirloin ribeye pork belly turkey. Ham short ribs chicken, corned beef hamburger frankfurter cupim leberkas bacon capicola boudin turducken tongue shank jerky. Short ribs biltong pork loin burgdoggen beef ribs, prosciutto boudin kevin ham hock pork belly. Pork belly tail ham hamburger shoulder biltong. Prosciutto meatball bacon, pastrami beef ribs pork ham andouille sirloin biltong tail. T-bone short loin leberkas ground round tenderloin. Shoulder tri-tip capicola doner, biltong meatloaf jerky pork belly.
+
+                <b>Background</b>
+                <br>
+                Amyotrophic lateral sclerosis (ALS), cerebral palsy, brain stem stroke, multiple sclerosis, and spinal cord injuries are among the primary causes of locked-in syndrome. In motor imagery tasks, the alpha and beta brain wave frequency bands are the most influential, particularly when imagery involves left and right hand movements, with corresponding neural activity originating in the brain's C3 and C4 areas. To classify EEG data effectively, convolutional neural networks (CNN) and recurrent neural networks (RNN) have been proposed due to their ability to capture both spatial and temporal features inherent in biometric data. Additionally, attention mechanisms, commonly utilized in EEG signal classification tasks, enhance model performance by enabling the network to concentrate on the most relevant features and effectively capture temporal dependencies associated with specific signal categories.
+                <br><br>
+
+                <b>Dataset/Processing</b>
+                <br>
+                The dataset consists of EEG recordings from six subjects (two males and four females) aged between 18 and 22 years old. Participants were instructed to complete various prompts by watching a series of videos, including: physically opening and closing fists with audio and text prompts; imagining opening and closing fists guided by text-only prompts; imagining directions guided by audio and text prompts, audio-only prompts, and text-only prompts. Each prompt lasted for three seconds and was followed by a two-second rest period.
+                <br><br>
+                Data processing involved filtering EEG signals between 0.1 Hz and 30 Hz, replicating independent component analysis (ICA) preprocessing as proposed in existing literature, and applying an aggressive high-pass filter at 2 Hz. Outlier epochs were automatically rejected to ensure data quality. ICA artifact detection was performed using MNE algorithms to identify and remove muscle and eye blink artifacts. Due to the limitations of inexpensive EEG devices, which lack dedicated electrooculogram (EOG) channels, electrodes Fp1 and Fp2 were utilized as substitutes. Finally, data reconstruction was applied to restore signals for subsequent analysis.
+                <br><br>
+
+                <b>Data Preparation</b>
+                <br>
+                During data preparation, the EEG data was trimmed to include precisely 150 seconds from each trial. The start of each trial was identified by detecting characteristic spikes within the accelerometer channel. After identifying these starting points, the signals were segmented into individual components, each clearly labeled according to the corresponding subject's intended thoughts.
+                <br><br>
+
+                <b>EEG Classification Pipeline</b>
+                <br>
+                The EEG classification pipeline begins by segmenting EEG signals into overlapping windows, followed by normalization and feature extraction using a masked autoencoder. The autoencoder compresses input EEG data into latent representations through an encoder comprised of convolutional layers and subsequently reconstructs the original signals using a decoder trained with mean squared error (MSE) loss. Features learned by the encoder are then passed into a convolutional neural network (CNN) classifier, optimized using categorical cross-entropy loss. Model performance and generalizability across individuals are assessed through leave-one-subject-out (LOSO) cross-validation. This pipeline allows efficient extraction of EEG features and significantly enhances classification accuracy.
+                <br><br>
+                <br><br>
+                
+
             </div>
             <div class="col-12 col-lg-4">
                 <!-- <div class="card" style="width: 18rem;">
